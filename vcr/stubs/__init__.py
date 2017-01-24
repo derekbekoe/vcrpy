@@ -199,9 +199,9 @@ class VCRConnection(object):
         # no need to check that here.
         self.real_connection.close()
 
-    @staticmethod
-    def _get_content_length(data, method):
-        self._baseclass._get_content_length(data, method)
+    # @staticmethod
+    # def _get_content_length(data, method):
+    #     self._baseclass._get_content_length(data, method)
 
     def endheaders(self, message_body=None):
         """
@@ -316,6 +316,12 @@ class VCRConnection(object):
         from vcr.patch import force_reset
         with force_reset():
             self.real_connection = self._baseclass(*args, **kwargs)
+
+    def __getattr__(self, name):
+        try:
+            super(VCRConnection, self).__getattr__(name)
+        except AttributeError:
+            self.real_connection.__getattr__(name)
 
     def __setattr__(self, name, value):
         """
