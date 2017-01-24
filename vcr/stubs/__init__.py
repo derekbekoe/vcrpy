@@ -199,7 +199,7 @@ class VCRConnection(object):
         # no need to check that here.
         self.real_connection.close()
 
-    def _get_content_length(data, method):
+    def _get_content_length(self, data, method):
         self.real_connection._get_content_length(data, method)
 
     def endheaders(self, message_body=None):
