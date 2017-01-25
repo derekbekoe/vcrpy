@@ -319,7 +319,7 @@ class VCRConnection(object):
 
     def __getattr__(self, name):
         print("Get attribute...", name)
-        return object.__getattribute__(name)
+        return object.__getattribute__(self, name)
 
     # def __getattribute__(self, name):
     #     # Normal attribute lookup failed. The attribute may exist in real_connection
