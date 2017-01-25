@@ -318,7 +318,8 @@ class VCRConnection(object):
             self.real_connection = self._baseclass(*args, **kwargs)
 
     def __getattr__(self, name):
-        print("Get attribute...", name)
+        if name == '_get_content_length':
+            return self.real_connection._get_content_length(data, method)
         return object.__getattribute__(self, name)
 
     # def __getattribute__(self, name):
