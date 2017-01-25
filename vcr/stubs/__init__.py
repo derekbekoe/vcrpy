@@ -317,13 +317,17 @@ class VCRConnection(object):
         with force_reset():
             self.real_connection = self._baseclass(*args, **kwargs)
 
-    def __getattribute__(self, name):
-        # Normal attribute lookup failed. The attribute may exist in real_connection
-        try:
-            return object.__getattribute__(self, name)
-        except AttributeError as ae:
-            print("INSIDE THE ATTRIBUTE ERROR", ae)
-            return self.real_connection.__getattribute__(name)
+    def __getattr__(self, name):
+        print("Get attribute...", name)
+        return object.__getattribute__(name)
+
+    # def __getattribute__(self, name):
+    #     # Normal attribute lookup failed. The attribute may exist in real_connection
+    #     try:
+    #         return object.__getattribute__(self, name)
+    #     except AttributeError as ae:
+    #         print("INSIDE THE ATTRIBUTE ERROR", ae)
+    #         return self.real_connection.__getattribute__(name)
 
     def __setattr__(self, name, value):
         """
