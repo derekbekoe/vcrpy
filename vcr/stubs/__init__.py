@@ -321,6 +321,7 @@ class VCRConnection(object):
         import sys
         print("Get attribute...", name, file=sys.stderr)
         if name == '_get_content_length':
+            raise Exception('HERE')
             return self.real_connection._get_content_length(data, method)
         return object.__getattribute__(self, name)
 
