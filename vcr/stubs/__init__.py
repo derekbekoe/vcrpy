@@ -318,10 +318,8 @@ class VCRConnection(object):
             self.real_connection = self._baseclass(*args, **kwargs)
 
     def __getattr__(self, name):
-        try:
-            super(VCRConnection, self).__getattr__(name)
-        except AttributeError:
-            self.real_connection.__getattr__(name)
+        # Normal attribute lookup failed. The attribute may exist in real_connection
+        self.real_connection.__getattr__(name)
 
     def __setattr__(self, name, value):
         """
